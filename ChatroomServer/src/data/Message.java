@@ -4,6 +4,11 @@ public class Message {
 	private String username;
 	private String messeage;
 	
+	public Message(String username, String messeage) {
+		this.username = username;
+		this.messeage = messeage;
+	}
+	
 	public String getUsername() {
 		return username;
 	}
