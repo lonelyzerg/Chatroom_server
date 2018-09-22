@@ -103,9 +103,10 @@ public class ChatroomServer {
 					System.err.println("message: " + raw_message);
 					if (raw_message.equals(quit_command)) {
 						stop = true;
-						continue;
+						sleep(2000);
+						break;
 					}
-					String message = chat_prefix + "[" + username + "]" + raw_message.substring(6) + "\n";
+					String message = chat_prefix + "[" + username + "]" + raw_message.substring(6) + suffix;
 					for (HandlingThread t : thread_list) {
 						if (t.getId() != this.getId()) {
 							t.send(message);
@@ -116,9 +117,9 @@ public class ChatroomServer {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
 			} catch (ServerException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
 				e.printStackTrace();
 			} finally {
 				try {
