@@ -24,7 +24,7 @@ public class ChatroomServer {
 	private static final String register_success = "[REGI]Success\n";
 	private static final String register_failure = "[REGI]Failure\n";
 	private static final String register_prefix = "[REGI]";
-	private static final String exit_code = "[EXIT]\n";
+	private static final String exit_code = "[EXIT]";
 	private static final String chat_prefix = "[CHAT]";
 	private static final String suffix = "\n";
 	private static final String quit_command = "\\q";
@@ -101,9 +101,10 @@ public class ChatroomServer {
 				while (!stop) {
 					String raw_message = in.readLine();
 					System.err.println("message: " + raw_message);
-					if (raw_message.equals(quit_command)) {
+					if (raw_message.equals(exit_code)) {
+
 						stop = true;
-						sleep(2000);
+						sleep(100);
 						break;
 					}
 					String message = chat_prefix + "[" + username + "]" + raw_message.substring(6) + suffix;
@@ -123,6 +124,9 @@ public class ChatroomServer {
 				e.printStackTrace();
 			} finally {
 				try {
+					in.close();
+					out.close();
+					server.close();
 					for (int i = 0; i < thread_list.size(); i++) {
 						HandlingThread t = thread_list.get(i);
 						if (t.getId() == this.getId()) {
@@ -130,9 +134,8 @@ public class ChatroomServer {
 						}
 					}
 					user_list.remove(username);
-					in.close();
-					out.close();
-					server.close();
+					System.err.println("user " + username + " unregistered.");
+
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

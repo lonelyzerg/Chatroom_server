@@ -1,6 +1,6 @@
 Server for chat room.
 ### Implemented:
-register.
+register, chat, unregister.
 
 ### Going to implement:
-all else.
+channel, encryption, multi-media...
