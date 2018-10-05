@@ -104,6 +104,8 @@ public class ChatroomServer {
 					if (raw_message.equals(exit_code)) {
 
 						stop = true;
+						out.write((exit_code + suffix).getBytes(charset_utf_8));
+						out.flush();
 						sleep(100);
 						break;
 					}
